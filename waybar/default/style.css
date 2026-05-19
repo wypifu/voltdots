@@ -1,0 +1,218 @@
+/* voltdots — waybar style.css
+   BKPView theme — dark carbon, electric blue
+   Override in waybar/custom/style.css */
+
+/* --- Variables --- */
+* {
+    font-family: "JetBrains Mono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+/* --- Bar --- */
+window#waybar {
+    background-color: rgba(10, 12, 16, 0.85);
+    border-bottom: 1px solid rgba(26, 108, 245, 0.3);
+    color: #c8d3e6;
+    transition: background-color 0.3s ease;
+}
+
+window#waybar.hidden {
+    opacity: 0;
+}
+
+/* --- Tooltip --- */
+tooltip {
+    background-color: rgba(10, 12, 16, 0.95);
+    border: 1px solid rgba(26, 108, 245, 0.5);
+    border-radius: 8px;
+    color: #c8d3e6;
+}
+
+tooltip label {
+    color: #c8d3e6;
+}
+
+/* --- General module --- */
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0 8px;
+}
+
+#custom-actioncenter,
+#custom-screenshot,
+#custom-record,
+#custom-weather,
+#clock,
+#cpu,
+#memory,
+#tray,
+#workspaces,
+window#waybar > box > .module {
+    padding: 2px 8px;
+    margin: 3px 2px;
+    border-radius: 6px;
+    background-color: rgba(20, 24, 32, 0.6);
+    color: #c8d3e6;
+    transition: all 0.2s ease;
+}
+
+/* --- Hover --- */
+#custom-actioncenter:hover,
+#custom-screenshot:hover,
+#custom-record:hover,
+#custom-weather:hover,
+#clock:hover,
+#cpu:hover,
+#memory:hover {
+    background-color: rgba(26, 108, 245, 0.2);
+    color: #7eb8f7;
+    border: 1px solid rgba(26, 108, 245, 0.4);
+}
+
+/* --- Window title --- */
+#window {
+    color: #7eb8f7;
+    font-style: italic;
+    background-color: transparent;
+    padding: 0 12px;
+}
+
+/* --- Workspaces --- */
+#workspaces {
+    background-color: transparent;
+    padding: 0;
+}
+
+#workspaces button {
+    padding: 2px 8px;
+    margin: 3px 2px;
+    border-radius: 6px;
+    background-color: rgba(20, 24, 32, 0.6);
+    color: #5a8fc2;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+    background-color: rgba(26, 108, 245, 0.2);
+    color: #7eb8f7;
+    border: 1px solid rgba(26, 108, 245, 0.4);
+}
+
+#workspaces button.active {
+    background-color: rgba(26, 108, 245, 0.3);
+    color: #ffffff;
+    border: 1px solid rgba(26, 108, 245, 0.6);
+}
+
+#workspaces button.urgent {
+    background-color: rgba(245, 66, 26, 0.3);
+    color: #f5421a;
+    border: 1px solid rgba(245, 66, 26, 0.6);
+}
+
+/* --- Clock --- */
+#clock {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: rgba(26, 108, 245, 0.15);
+    border: 1px solid rgba(26, 108, 245, 0.3);
+}
+
+#clock:hover {
+    background-color: rgba(26, 108, 245, 0.3);
+}
+
+/* --- CPU --- */
+#cpu {
+    color: #7eb8f7;
+}
+
+#cpu.warning {
+    color: #f5c51a;
+}
+
+#cpu.critical {
+    color: #f5421a;
+    animation: blink 1s infinite;
+}
+
+/* --- Memory --- */
+#memory {
+    color: #7eb8f7;
+}
+
+#memory.warning {
+    color: #f5c51a;
+}
+
+#memory.critical {
+    color: #f5421a;
+    animation: blink 1s infinite;
+}
+
+/* --- Record --- */
+#custom-record {
+    color: #7eb8f7;
+}
+
+#custom-record.recording {
+    color: #f5421a;
+    background-color: rgba(245, 66, 26, 0.2);
+    border: 1px solid rgba(245, 66, 26, 0.4);
+    animation: blink 1s infinite;
+}
+
+/* --- Action center --- */
+#custom-actioncenter {
+    color: #7eb8f7;
+    font-size: 16px;
+    background-color: rgba(26, 108, 245, 0.15);
+    border: 1px solid rgba(26, 108, 245, 0.3);
+    padding: 2px 12px;
+}
+
+/* --- Tray --- */
+#tray {
+    background-color: transparent;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: rgba(245, 66, 26, 0.2);
+}
+
+/* --- Blink animation --- */
+@keyframes blink {
+    to {
+        background-color: transparent;
+        color: #ffffff;
+    }
+}
+
+#custom-swaync {
+    color: #7eb8f7;
+    background-color: rgba(20, 24, 32, 0.6);
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin: 3px 2px;
+}
+
+#custom-swaync.notification {
+    color: #f5421a;
+    background-color: rgba(245, 66, 26, 0.15);
+    border: 1px solid rgba(245, 66, 26, 0.4);
+}
+
+#custom-swaync.dnd {
+    color: #5a8fc2;
+}

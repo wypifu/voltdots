@@ -1,0 +1,142 @@
+/* voltdots — rofi bkpview.rasi
+   BKPView theme — dark carbon, electric blue */
+
+* {
+    /* Colors */
+    bg0:        rgba(10, 12, 16, 0.95);
+    bg1:        rgba(20, 24, 32, 0.90);
+    bg2:        rgba(30, 36, 48, 0.85);
+    bg-active:  rgba(26, 108, 245, 0.25);
+    bg-urgent:  rgba(245, 66, 26, 0.25);
+
+    fg0:        #c8d3e6;
+    fg1:        #7eb8f7;
+    fg2:        #5a8fc2;
+    fg-active:  #ffffff;
+    fg-urgent:  #f5421a;
+
+    accent:     #1a6cf5;
+    border:     rgba(26, 108, 245, 0.4);
+
+    /* Reset */
+    background-color:   transparent;
+    text-color:         @fg0;
+    border-color:       @border;
+}
+
+window {
+    background-color:   @bg0;
+    border:             1px solid;
+    border-color:       @border;
+    border-radius:      12px;
+    width:              520px;
+    padding:            0;
+}
+
+mainbox {
+    background-color:   transparent;
+    padding:            12px;
+    spacing:            8px;
+}
+
+/* --- Search bar --- */
+inputbar {
+    background-color:   @bg1;
+    border:             1px solid @border;
+    border-radius:      8px;
+    padding:            8px 12px;
+    spacing:            8px;
+    children:           [ prompt, entry ];
+}
+
+prompt {
+    background-color:   transparent;
+    text-color:         @accent;
+    font:               "JetBrains Mono Nerd Font Bold 13";
+}
+
+entry {
+    background-color:   transparent;
+    text-color:         @fg0;
+    placeholder:        "Search...";
+    placeholder-color:  @fg2;
+    cursor:             text;
+}
+
+/* --- List --- */
+listview {
+    background-color:   transparent;
+    scrollbar:          false;
+    spacing:            4px;
+    lines:              8;
+    columns:            1;
+    fixed-height:       false;
+}
+
+/* --- Items --- */
+element {
+    background-color:   transparent;
+    border-radius:      8px;
+    padding:            8px 10px;
+    spacing:            10px;
+    children:           [ element-icon, element-text ];
+    cursor:             pointer;
+}
+
+element normal normal {
+    background-color:   transparent;
+    text-color:         @fg0;
+}
+
+element normal active {
+    background-color:   @bg-active;
+    text-color:         @fg-active;
+}
+
+element normal urgent {
+    background-color:   @bg-urgent;
+    text-color:         @fg-urgent;
+}
+
+element selected normal {
+    background-color:   @bg-active;
+    text-color:         @fg-active;
+    border:             1px solid @border;
+}
+
+element selected active {
+    background-color:   @bg-active;
+    text-color:         @fg-active;
+}
+
+element selected urgent {
+    background-color:   @bg-urgent;
+    text-color:         @fg-urgent;
+}
+
+element-icon {
+    background-color:   transparent;
+    size:               24px;
+    cursor:             inherit;
+}
+
+element-text {
+    background-color:   transparent;
+    text-color:         inherit;
+    cursor:             inherit;
+    vertical-align:     0.5;
+}
+
+/* --- Message --- */
+message {
+    background-color:   @bg1;
+    border:             1px solid @border;
+    border-radius:      8px;
+    padding:            8px 12px;
+    margin:             4px 0 0 0;
+}
+
+textbox {
+    background-color:   transparent;
+    text-color:         @fg1;
+}
