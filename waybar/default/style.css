@@ -13,8 +13,9 @@
 
 /* --- Bar --- */
 window#waybar {
-    background-color: rgba(10, 12, 16, 0.85);
+    background-color: rgba(10, 12, 16, 0.75);
     border-bottom: 1px solid rgba(26, 108, 245, 0.3);
+    border-radius: 14px 14px 0 0;
     color: #c8d3e6;
     transition: background-color 0.3s ease;
 }
