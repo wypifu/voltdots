@@ -5,7 +5,7 @@
 /* --- Variables --- */
 * {
     font-family: "JetBrains Mono Nerd Font", "Noto Sans", sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     border: none;
     border-radius: 0;
     min-height: 0;
@@ -39,7 +39,7 @@ tooltip label {
 .modules-left,
 .modules-center,
 .modules-right {
-    padding: 0 8px;
+    padding: 0 5px;
 }
 
 #custom-actioncenter,
@@ -52,8 +52,8 @@ tooltip label {
 #tray,
 #workspaces,
 window#waybar > box > .module {
-    padding: 2px 8px;
-    margin: 3px 2px;
+    padding: 2px 5px;
+    margin: 2px 1px;
     border-radius: 6px;
     background-color: rgba(20, 24, 32, 0.6);
     color: #c8d3e6;
@@ -88,8 +88,8 @@ window#waybar > box > .module {
 }
 
 #workspaces button {
-    padding: 2px 8px;
-    margin: 3px 2px;
+    padding: 2px 5px;
+    margin: 2px 1px;
     border-radius: 6px;
     background-color: rgba(20, 24, 32, 0.6);
     color: #5a8fc2;
@@ -174,7 +174,7 @@ window#waybar > box > .module {
     font-size: 16px;
     background-color: rgba(26, 108, 245, 0.15);
     border: 1px solid rgba(26, 108, 245, 0.3);
-    padding: 2px 12px;
+    padding: 2px 5px;
 }
 
 /* --- Tray --- */
@@ -203,8 +203,8 @@ window#waybar > box > .module {
     color: #7eb8f7;
     background-color: rgba(20, 24, 32, 0.6);
     border-radius: 6px;
-    padding: 2px 8px;
-    margin: 3px 2px;
+    padding: 2px 5px;
+    margin: 2px 1px;
 }
 
 #custom-swaync.notification {

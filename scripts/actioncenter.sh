@@ -83,6 +83,10 @@ build_menu() {
     echo "$bt_icon  Bluetooth: $bt_label"
     echo "  Bluetooth devices..."
     echo "───────────────────────"
+    echo "󰶈  Rotate left"
+    echo "󰶊  Rotate right"
+    echo "󰁌  Auto-rotate"
+    echo "───────────────────────"
     echo "󰓃  Audio output: $sink"
     echo "  Audio outputs..."
     echo "───────────────────────"
@@ -103,10 +107,11 @@ wifi_menu() {
         networks=$(nmcli -t -f SSID,SIGNAL,SECURITY d wifi list 2>/dev/null | \
             awk -F: '{printf "󰤨  %-30s %s%%  %s\n", $1, $2, $3}' | head -10)
         local choice
-        choice=$(echo -e "󰤭  Disable WiFi\n───────────────────────\n$networks" | \
-            rofi -dmenu -p "WiFi" -theme-str 'window {width: 400px;}')
+        choice=$(echo -e "󰌍  Go back\n󰤭  Disable WiFi\n───────────────────────\n$networks" | \
+            wofi --dmenu -p "WiFi" --style /home/wypifu/.voltdots/wofi/style.css)
 
         case "$choice" in
+            *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
             *"Disable WiFi"*)
                 nmcli radio wifi off
                 notify-send "WiFi" "Disabled" -a "Action Center"
@@ -133,10 +138,11 @@ bt_menu() {
         devices=$(bluetoothctl devices 2>/dev/null | \
             awk '{print "󰂯  " $3}' | head -10)
         local choice
-        choice=$(echo -e "󰂲  Disable Bluetooth\n───────────────────────\n$devices" | \
-            rofi -dmenu -p "Bluetooth" -theme-str 'window {width: 400px;}')
+        choice=$(echo -e "󰌍  Go back\n󰂲  Disable Bluetooth\n───────────────────────\n$devices" | \
+            wofi --dmenu -p "Bluetooth" --style /home/wypifu/.voltdots/wofi/style.css)
 
         case "$choice" in
+            *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
             *"Disable Bluetooth"*)
                 bluetoothctl power off
                 notify-send "Bluetooth" "Disabled" -a "Action Center"
@@ -160,23 +166,30 @@ audio_menu() {
         grep "│" | awk '{print "󰓃  " $0}' | head -10)
 
     local choice
-    choice=$(echo "$sinks" | rofi -dmenu -p "Audio output" \
-        -theme-str 'window {width: 450px;}')
+    choice=$(echo -e "󰌍  Go back\n───────────────────────\n$sinks" | wofi --dmenu \
+        --style "$HOME/.voltdots/wofi/style.css" --width 450 --height 300)
 
-    if [[ -n "$choice" ]]; then
-        local sink_id=$(echo "$choice" | grep -o '[0-9]*\.' | head -1 | tr -d '.')
-        [[ -n "$sink_id" ]] && wpctl set-default "$sink_id" && \
-            notify-send "Audio" "Output changed" -a "Action Center"
-    fi
+    case "$choice" in
+        *"Go back"*)
+            ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
+        *)
+            if [[ -n "$choice" ]]; then
+                local sink_id=$(echo "$choice" | grep -o '[0-9]*\.' | head -1 | tr -d '.')
+                [[ -n "$sink_id" ]] && wpctl set-default "$sink_id" && \
+                    notify-send "Audio" "Output changed" -a "Action Center"
+            fi
+            ;;
+    esac
 }
 
 # --- Volume submenu ---
 volume_menu() {
     local choice
-    choice=$(printf "󰕾  Volume +10%%\n󰕿  Volume -10%%\n󰝟  Toggle mute" | \
-        rofi -dmenu -p "Volume" -theme-str 'window {width: 300px;}')
+    choice=$(printf "󰌍  Go back\n󰕾  Volume +10%%\n󰕿  Volume -10%%\n󰝟  Toggle mute" | \
+        wofi --dmenu -p "Volume" --style /home/wypifu/.voltdots/wofi/style.css)
 
     case "$choice" in
+        *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
         *"+10%"*)
             swayosd-client --output-volume raise
             ;;
@@ -192,10 +205,11 @@ volume_menu() {
 # --- Brightness submenu ---
 brightness_menu() {
     local choice
-    choice=$(printf "󰃠  Brightness +10%%\n󰃞  Brightness -10%%" | \
-        rofi -dmenu -p "Brightness" -theme-str 'window {width: 300px;}')
+    choice=$(printf "󰌍  Go back\n󰃠  Brightness +10%%\n󰃞  Brightness -10%%" | \
+        wofi --dmenu -p "Brightness" --style /home/wypifu/.voltdots/wofi/style.css)
 
     case "$choice" in
+        *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
         *"+10%"*)
             swayosd-client --brightness raise
             ;;
@@ -206,18 +220,24 @@ brightness_menu() {
 }
 
 # --- Main ---
-CHOICE=$(build_menu | rofi -dmenu \
+CHOICE=$(build_menu | wofi --dmenu \
     -p "  Action Center" \
-    -no-custom \
-    -theme-str 'window {width: 350px;} listview {lines: 18;}')
+     \
+    --style /home/wypifu/.voltdots/wofi/style.css\
+    --yoffset 0\
+    --width 300\
+    --height 640)
 
 case "$CHOICE" in
-    *"Volume"*)         volume_menu ;;
-    *"Brightness"*)     brightness_menu ;;
+    *"Volume"*)         ~/.voltdots/scripts/volumectl.sh ;;
+    *"Brightness"*)     ~/.voltdots/scripts/volumectl.sh ;;
     *"WiFi networks"*)  wifi_menu ;;
     *"WiFi:"*)          wifi_menu ;;
     *"Bluetooth dev"*)  bt_menu ;;
     *"Bluetooth:"*)     bt_menu ;;
+    *"Rotate left"*)   ~/.voltdots/scripts/rotate.sh left ;;
+    *"Rotate right"*)  ~/.voltdots/scripts/rotate.sh right ;;
+    *"Auto-rotate"*)   ~/.voltdots/scripts/rotate.sh auto & ;;
     *"Audio outputs"*)  audio_menu ;;
     *"Lock"*)           hyprlock ;;
     *"Logout"*)         hyprctl dispatch exit ;;

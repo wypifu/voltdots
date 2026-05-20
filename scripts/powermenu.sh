@@ -4,11 +4,11 @@
 
 OPTIONS="  Lock\n  Logout\n  Suspend\n  Hibernate\n  Reboot\n  Shutdown\n  Cancel"
 
-CHOICE=$(echo -e "$OPTIONS" | rofi -dmenu \
+CHOICE=$(echo -e "$OPTIONS" | wofi --dmenu \
     -p "Power" \
     -i \
-    -no-custom \
-    -theme-str 'window {width: 250px;}')
+     \
+    --style /home/wypifu/.voltdots/wofi/style.css)
 
 case "$CHOICE" in
     *Lock)

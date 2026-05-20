@@ -26,7 +26,7 @@
 
 window {
     background-color:   @bg0;
-    border:             1px solid;
+    border: 1px;
     border-color:       @border;
     border-radius:      12px;
     width:              520px;
@@ -42,11 +42,11 @@ mainbox {
 /* --- Search bar --- */
 inputbar {
     background-color:   @bg1;
-    border:             1px solid @border;
+    border: 1px;
     border-radius:      8px;
     padding:            8px 12px;
     spacing:            8px;
-    children:           [ prompt, entry ];
+    children:           [ "prompt", "entry" ];
 }
 
 prompt {
@@ -101,7 +101,7 @@ element normal urgent {
 element selected normal {
     background-color:   @bg-active;
     text-color:         @fg-active;
-    border:             1px solid @border;
+    border: 1px;
 }
 
 element selected active {
@@ -130,7 +130,7 @@ element-text {
 /* --- Message --- */
 message {
     background-color:   @bg1;
-    border:             1px solid @border;
+    border: 1px;
     border-radius:      8px;
     padding:            8px 12px;
     margin:             4px 0 0 0;

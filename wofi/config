@@ -1,0 +1,14 @@
+allow_markup=true
+show=dmenu
+sort_order=default
+no_action=true
+dmenu=true
+insensitive=true
+prompt=
+width=320
+height=600
+location=3
+xoffset=-4
+yoffset=36
+cache_file=/dev/null
+single_click=true

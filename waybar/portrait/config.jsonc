@@ -23,11 +23,6 @@
 
     // --- Right ---
     "modules-right": [
-        "custom/screenshot",
-        "custom/record",
-        "cpu",
-        "memory",
-        "custom/weather",
         "tray",
         "custom/swaync",
         "custom/actioncenter"

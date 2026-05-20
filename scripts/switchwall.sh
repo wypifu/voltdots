@@ -44,7 +44,7 @@ apply_wall() {
     local wall="$1"
     local transition="${2:-$(get_random_transition)}"
 
-    swww img "$wall" \
+    awww img "$wall" \
         --transition-type "$transition" \
         --transition-duration 1.5 \
         --transition-fps 60
@@ -70,8 +70,8 @@ run_daemon() {
 # --- Main ---
 case "$1" in
     --init)
-        # Wait for swww-daemon
-        swww query || { swww-daemon & sleep 1; }
+        # Wait for awww-daemon
+        awww query || { awww-daemon & sleep 1; }
 
         # Load last wall if exists, otherwise random/fallback
         if [[ -f "$LAST_WALL_FILE" ]] && [[ -f "$(cat "$LAST_WALL_FILE")" ]]; then

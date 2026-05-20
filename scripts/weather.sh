@@ -122,7 +122,7 @@ popup_format() {
         output+="  📅  Forecast:\n$forecast\n"
     done
 
-    echo -e "$output" | rofi -dmenu \
+    echo -e "$output" | wofi --dmenu \
         -p "Weather" \
         -no-custom \
         -theme-str 'window {width: 500px;} listview {lines: 20;}'
