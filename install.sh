@@ -112,9 +112,13 @@ make_executable
 
 echo ""
 success "voltdots installed successfully!"
+echo ""
+info "Detecting monitors..."
+~/.voltdots/scripts/detect_monitors.sh
+echo ""
 info "Next steps:"
-echo "  1. Edit ~/.voltdots/hypr/custom/monitors.conf for your display setup"
+echo "  1. Review ~/.voltdots/hypr/custom/monitors.conf"
 echo "  2. Edit ~/.voltdots/hypr/custom/defaults.conf for your preferred apps"
 echo "  3. Edit ~/.voltdots/hypr/custom/env.conf for machine-specific env vars"
 echo "  4. Add wallpapers to ~/Pictures/Wallpapers"
-echo "  5. Restart Hyprland"
+echo "  5. Start Hyprland"
