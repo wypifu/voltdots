@@ -2,7 +2,7 @@
 # voltdots — actioncenter.sh
 # Action center panel via rofi
 # Shows volume, brightness, wifi, bluetooth, audio output, power options
-
+# Handle direct calls with argument
 # Load defaults
 CUSTOM="$HOME/.voltdots/hypr/custom/defaults.conf"
 DEFAULT="$HOME/.voltdots/hypr/default/defaults.conf"
@@ -122,7 +122,12 @@ wifi_menu() {
             wofi --dmenu -p "WiFi" --style /home/wypifu/.voltdots/wofi/style.css)
 
         case "$choice" in
-            *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
+            *"Go back"*)
+                if [[ "$FROM_SWAYNC" == true ]]; then
+                    exit 0
+                else
+                    ~/.voltdots/scripts/actioncenter.sh; exit 0
+                fi ;;
             *"Disable WiFi"*)
                 nmcli radio wifi off
                 notify-send "WiFi" "Disabled" -a "Action Center"
@@ -153,7 +158,12 @@ bt_menu() {
             wofi --dmenu -p "Bluetooth" --style /home/wypifu/.voltdots/wofi/style.css)
 
         case "$choice" in
-            *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
+            *"Go back"*)
+                if [[ "$FROM_SWAYNC" == true ]]; then
+                    exit 0
+                else
+                    ~/.voltdots/scripts/actioncenter.sh; exit 0
+                fi ;;
             *"Disable Bluetooth"*)
                 bluetoothctl power off
                 notify-send "Bluetooth" "Disabled" -a "Action Center"
@@ -182,7 +192,11 @@ audio_menu() {
 
     case "$choice" in
         *"Go back"*)
-            ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
+            if [[ "$FROM_SWAYNC" == true ]]; then
+                exit 0
+            else
+                ~/.voltdots/scripts/actioncenter.sh; exit 0
+            fi ;;
         *)
             if [[ -n "$choice" ]]; then
                 local sink_id=$(echo "$choice" | grep -o '[0-9]*\.' | head -1 | tr -d '.')
@@ -200,7 +214,12 @@ volume_menu() {
         wofi --dmenu -p "Volume" --style /home/wypifu/.voltdots/wofi/style.css)
 
     case "$choice" in
-        *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
+        *"Go back"*)
+            if [[ "$FROM_SWAYNC" == true ]]; then
+                exit 0
+            else
+                ~/.voltdots/scripts/actioncenter.sh; exit 0
+            fi ;;
         *"+10%"*)
             swayosd-client --output-volume raise
             ;;
@@ -220,7 +239,12 @@ brightness_menu() {
         wofi --dmenu -p "Brightness" --style /home/wypifu/.voltdots/wofi/style.css)
 
     case "$choice" in
-        *"Go back"*) ~/.voltdots/scripts/actioncenter.sh; exit 0 ;;
+        *"Go back"*)
+            if [[ "$FROM_SWAYNC" == true ]]; then
+                exit 0
+            else
+                ~/.voltdots/scripts/actioncenter.sh; exit 0
+            fi ;;
         *"+10%"*)
             swayosd-client --brightness raise
             ;;
@@ -229,6 +253,16 @@ brightness_menu() {
             ;;
     esac
 }
+
+# Handle direct calls with argument
+if [[ -n "$1" ]]; then
+    FROM_SWAYNC=true
+    case "$1" in
+        wifi)  wifi_menu; exit 0 ;;
+        bt)    bt_menu; exit 0 ;;
+        audio) audio_menu; exit 0 ;;
+    esac
+fi
 
 # --- Main ---
 CHOICE=$(build_menu | wofi --dmenu \

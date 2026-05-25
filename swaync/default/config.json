@@ -1,0 +1,82 @@
+{
+    "$schema": "/etc/xdg/swaync/configSchema.json",
+    "positionX": "right",
+    "positionY": "top",
+    "layer": "overlay",
+    "layer-shell": true,
+    "cssPriority": "application",
+    "control-center-margin-top": 8,
+    "control-center-margin-bottom": 8,
+    "control-center-margin-right": 8,
+    "control-center-margin-left": 0,
+    "notification-icon-size": 48,
+    "timeout": 7,
+    "timeout-low": 5,
+    "timeout-critical": 0,
+    "fit-to-screen": false,
+    "control-center-width": 380,
+    "control-center-height": 700,
+    "notification-window-width": 380,
+    "hide-on-clear": false,
+    "hide-on-action": true,
+    "transition-time": 200,
+    "widgets": [
+        "title",
+        "dnd",
+        "volume",
+        "backlight",
+        "buttons-grid",
+        "notifications"
+    ],
+    "widget-config": {
+        "title": {
+            "text": "Control Center",
+            "clear-all-button": true,
+            "button-text": "Clear all"
+        },
+        "dnd": {
+            "text": "Do not disturb"
+        },
+        "volume": {
+            "label": "󰕾",
+            "show-per-app": false
+        },
+        "backlight": {
+            "label": "󰃠",
+            "device": "acpi_video0"
+        },
+        "buttons-grid": {
+            "columns" : 3,
+            "actions": [
+                {
+                    "label": "󰤨 Wifi",
+                    "command": "~/.voltdots/scripts/actioncenter.sh wifi"
+                },
+                {
+                    "label": "󰂯 Volume",
+                    "command": "~/.voltdots/scripts/actioncenter.sh bt"
+                },
+                {
+                    "label": "󰓃 Audio",
+                    "command": "~/.voltdots/scripts/actioncenter.sh audio"
+                },
+                {
+                    "label": "󰶈 Rotate L",
+                    "command": "~/.voltdots/scripts/rotate.sh left"
+                },
+                {
+                    "label": "󰶊 Rotate R",
+                    "command": "~/.voltdots/scripts/rotate.sh right"
+                },
+                {
+                    "label": "󰁌 Rotate",
+                    "command": "~/.voltdots/scripts/rotate.sh auto"
+                },
+                {
+                    "label": "󰐥 Power Options",
+                    "command": "~/.voltdots/scripts/powermenu.sh"
+                }
+          ]
+        }
+    }
+}

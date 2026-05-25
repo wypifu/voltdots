@@ -30,14 +30,19 @@ get_transform() {
 
 switch_waybar() {
     local mode="$1"
+    local config
     if [[ "$mode" == "portrait" ]]; then
-        sleep 0.3 && pkill waybar && waybar --config "$HOME/.voltdots/waybar/portrait/config.jsonc" &
+        config="$HOME/.voltdots/waybar/portrait/config.jsonc"
     else
-        sleep 0.3 && pkill waybar && waybar --config "$HOME/.voltdots/waybar/default/config.jsonc" &
+        config="$HOME/.voltdots/waybar/default/config.jsonc"
     fi
+    
+    pkill waybar
+    sleep 0.5
+    systemd-run --user waybar --config "$config"
 }
 
-rotate_left() {
+rotate_right() {
     local current=$(get_transform)
     case "$current" in
         normal) wlr-randr --output "$MONITOR" --transform 270; map_input 270; switch_waybar portrait ;;
@@ -48,7 +53,7 @@ rotate_left() {
     esac
 }
 
-rotate_right() {
+rotate_left() {
     local current=$(get_transform)
     case "$current" in
         normal) wlr-randr --output "$MONITOR" --transform 90; map_input 90; switch_waybar portrait ;;

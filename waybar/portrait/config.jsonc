@@ -1,7 +1,3 @@
-// voltdots — waybar config.jsonc
-// BKPView theme — positions and modules
-// Override position in waybar/custom/config.jsonc
-
 {
     "position": "top",
     "height": 36,
@@ -10,116 +6,57 @@
     "passthrough": false,
     "gtk-layer-shell": true,
 
-    // --- Left ---
     "modules-left": [
         "hyprland/window",
         "hyprland/workspaces"
     ],
 
-    // --- Center ---
     "modules-center": [
         "clock"
     ],
 
-    // --- Right ---
     "modules-right": [
+        "battery",
         "tray",
-        "custom/swaync",
-        "custom/actioncenter"
+        "custom/swaync"
     ],
-
-    // =====================
-    // LEFT MODULES
-    // =====================
 
     "hyprland/window": {
         "format": "{}",
-        "max-length": 60,
+        "max-length": 30,
         "rewrite": {
             "": " Desktop"
         }
     },
 
-    // =====================
-    // CENTER MODULES
-    // =====================
-
     "hyprland/workspaces": {
         "format": "{icon}",
-        "format-icons": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "active": "",
-            "default": ""
-        },
         "persistent-workspaces": {
             "*": [1, 2, 3, 4]
         },
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1",
-        "max-workspaces": 4,
         "show-special": false
     },
 
     "clock": {
-        "format": "{:%H:%M %a %d/%m}",
-        "format-alt": "{:%A, %d %B %Y}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "mode": "month",
-            "mode-mon-col": 3,
-            "on-scroll": 1,
-            "format": {
-                "months":   "<span color='#7eb8f7'><b>{}</b></span>",
-                "days":     "<span color='#c8d3e6'>{}</span>",
-                "weekdays": "<span color='#1a6cf5'><b>{}</b></span>",
-                "today":    "<span color='#1a6cf5'><b><u>{}</u></b></span>"
-            }
-        },
-        "on-click" : "gsimplecal"
+        "format": "{:%H:%M}",
+        "on-click": "gsimplecal"
     },
 
-    // =====================
-    // RIGHT MODULES
-    // =====================
-
-    "custom/screenshot": {
-        "format": "󰹑 ",
-        "tooltip": "Screenshot (Super+Shift+S)",
-        "on-click": "~/.voltdots/scripts/snip.sh"
-    },
-
-    "custom/record": {
-        "format": "󰑋 ",
-        "tooltip": "Record screen (Super+Shift+R)",
-        "on-click": "~/.voltdots/scripts/record.sh",
-        "exec": "~/.voltdots/scripts/record_status.sh",
-        "interval": 2,
-        "return-type": "json"
-    },
-
-    "cpu": {
-        "format": "󰻠 {usage}%",
-        "tooltip": true,
-        "interval": 3,
-        "on-click": "~/.voltdots/scripts/launch_app.sh terminal"
-    },
-
-    "memory": {
-         "format": "󰍛 {percentage}%",
-        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G",
-        "interval": 3
-    },
-
-    "custom/weather": {
-        "format": "{}",
-        "exec": "~/.voltdots/scripts/weather.sh --short",
-        "on-click": "~/.voltdots/scripts/weather.sh --popup",
-        "interval": 600,
-        "tooltip": true,
-        "return-type": "json"
+    "battery" : {
+      "states" : {
+        "warning" : 20,
+        "critical" : 10
+      },
+      "format" : "{icon} {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging" : "󰂄 {capacity}%",
+    "tooltip-format": "{timeTo}",
+    "tooltip-format-charging": "Charging — full in {timeTo}",
+    "tooltip-format-plugged": "Plugged in",
+    "interval": 30
     },
 
     "tray": {
@@ -128,30 +65,26 @@
         "show-passive-items": false
     },
 
-    "custom/swaync": {
-      "tooltip": true,
-      "format": "{icon}",
-      "format-icons": {
-        "notification": "󰂚<span color='#f5421a'><sup></sup></span>",
-        "none": "󰂚",
-        "dnd-notification": "󰂛<span color='#f5421a'><sup></sup></span>",
-        "dnd-none": "󰂛",
-        "inhibited-notification": "󰂚<span color='#f5421a'><sup></sup></span>",
-        "inhibited-none": "󰂚",
-        "dnd-inhibited-notification": "󰂛<span color='#f5421a'><sup></sup></span>",
-        "dnd-inhibited-none": "󰂛"
-      },
-      "return-type": "json",
-      "exec-if": "which swaync-client",
-      "exec": "swaync-client -swb",
-      "on-click": "swaync-client -t -sw",
-      "on-click-right": "swaync-client -d -sw",
-      "escape": true
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 6
     },
 
-    "custom/actioncenter": {
-        "format": "󰣐 ",
-        "tooltip": "Action Center",
-        "on-click": "~/.voltdots/scripts/actioncenter.sh"
+    "custom/swaync": {
+        "tooltip": true,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂚<span color='#f5421a'><sup></sup></span>",
+            "none": "󰂚",
+            "dnd-notification": "󰂛<span color='#f5421a'><sup></sup></span>",
+            "dnd-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     }
 }

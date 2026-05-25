@@ -28,10 +28,10 @@
         "cpu",
         "memory",
         "custom/weather",
+        "pulseaudio",
         "battery",
         "tray",
-        "custom/swaync",
-        "custom/actioncenter"
+        "custom/swaync"
     ],
 
     // =====================
@@ -136,6 +136,7 @@
       "format" : "{icon} {capacity}%",
     "format-plugged": "󰚥 {capacity}%",
     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging" : "󰂄 {capacity}%",
     "tooltip-format": "{timeTo}",
     "tooltip-format-charging": "Charging — full in {timeTo}",
     "tooltip-format-plugged": "Plugged in",
@@ -168,10 +169,14 @@
       "on-click-right": "swaync-client -d -sw",
       "escape": true
     },
+    "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 muted",
+    "format-icons": {
+        "default": ["󰕿", "󰖀", "󰕾"]
+    },
+    "on-click": "swaync-client -t",
+    "tooltip-format": "{desc} — {volume}%"
+},
 
-    "custom/actioncenter": {
-        "format": "󰣐 ",
-        "tooltip": "Action Center",
-        "on-click": "~/.voltdots/scripts/actioncenter.sh"
-    }
 }

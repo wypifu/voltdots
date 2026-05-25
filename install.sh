@@ -113,6 +113,14 @@ init_custom() {
 env = VOLTSCRIPTS,$DOTFILES/scripts
 ENVEOF
     success "Generated custom/env.conf"
+
+    BACKLIGHT=$(ls /sys/class/backlight/ 2>/dev/null | head -1)
+    if [[ -n "$BACKLIGHT" ]]; then
+        sed "s/\"device\": \"\"/\"device\": \"$BACKLIGHT\"/" \
+            "$DOTFILES/swaync/default/config.json" > /tmp/swaync_config.json
+        cp /tmp/swaync_config.json "$DOTFILES/swaync/default/config.json"
+        success "Backlight device set to $BACKLIGHT"
+    fi
 }
 
 # --- Symlinks ---
