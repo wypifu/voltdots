@@ -5,12 +5,12 @@
 confirm() {
     local msg="$1"
     local choice
-    choice=$(printf "Yes\nNo" | wofi --dmenu \
-        --prompt "$msg" \
-        --style "$HOME/.voltdots/wofi/style.css" \
-        --width 200 --height 120 \
-        --hide-search)
-    [[ "$choice" == "Yes" ]]
+    choice=$(printf "$msg\n───────────────\n󰄬  Confirm\n󰅖  Cancel" | wofi --dmenu \
+    --style "$HOME/.voltdots/wofi/style.css" \
+    --width 320 --height 200 \
+    --location 2 \
+    --hide-search)
+[[ "$choice" == *"Confirm"* ]]
 }
 
 

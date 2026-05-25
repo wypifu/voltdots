@@ -4,7 +4,7 @@
 
 {
     "position": "top",
-    "height": 36,
+    "height": 30,
     "spacing": 4,
     "exclusive": true,
     "passthrough": false,
