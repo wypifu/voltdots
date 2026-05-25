@@ -61,11 +61,11 @@
                     "command": "~/.voltdots/scripts/actioncenter.sh audio"
                 },
                 {
-                    "label": "󰶈 Rotate L",
+                    "label": "󰶈 RotateL",
                     "command": "~/.voltdots/scripts/rotate.sh left"
                 },
                 {
-                    "label": "󰶊 Rotate R",
+                    "label": "󰶊 RotateR",
                     "command": "~/.voltdots/scripts/rotate.sh right"
                 },
                 {
@@ -73,7 +73,19 @@
                     "command": "~/.voltdots/scripts/rotate.sh auto"
                 },
                 {
-                    "label": "󰐥 Power Options",
+                    "label": "󰹑  Print",
+                    "command": "swaync-client -t  && sleep 0.3 && ~/.voltdots/scripts/snip.sh"
+                },
+                {
+                    "label": "󰑋 Record",
+                    "command": "swaync-client -t && sleep 0.3 && ~/.voltdots/scripts/record.sh"
+                },
+                {
+                    "label": "󰹑  RGB",
+                    "command": "swaync-client -t && sleep 0.3 && hyprpicker -a"
+                },
+                {
+                    "label": "󰐥 Power",
                     "command": "~/.voltdots/scripts/powermenu.sh"
                 }
           ]

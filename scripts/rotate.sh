@@ -42,7 +42,7 @@ switch_waybar() {
     systemd-run --user waybar --config "$config"
 }
 
-rotate_right() {
+rotate_left() {
     local current=$(get_transform)
     case "$current" in
         normal) wlr-randr --output "$MONITOR" --transform 270; map_input 270; switch_waybar portrait ;;
@@ -53,7 +53,7 @@ rotate_right() {
     esac
 }
 
-rotate_left() {
+rotate_right() {
     local current=$(get_transform)
     case "$current" in
         normal) wlr-randr --output "$MONITOR" --transform 90; map_input 90; switch_waybar portrait ;;
@@ -84,8 +84,8 @@ autorotate() {
         case "$line" in
             *"normal"*)    wlr-randr --output "$MONITOR" --transform normal; map_input normal; switch_waybar landscape ;;
             *"bottom-up"*) wlr-randr --output "$MONITOR" --transform 180;   map_input 180;   switch_waybar portrait ;;
-            *"right-up"*)  wlr-randr --output "$MONITOR" --transform 90;    map_input 90;    switch_waybar portrait ;;
-            *"left-up"*)   wlr-randr --output "$MONITOR" --transform 270;   map_input 270;   switch_waybar portrait ;;
+            *"left-up"*)  wlr-randr --output "$MONITOR" --transform 90;    map_input 90;    switch_waybar portrait ;;
+            *"right-up"*)   wlr-randr --output "$MONITOR" --transform 270;   map_input 270;   switch_waybar portrait ;;
         esac
     done
 }
