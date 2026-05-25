@@ -8,6 +8,17 @@ CUSTOM="$HOME/.voltdots/hypr/custom/defaults.conf"
 DEFAULT="$HOME/.voltdots/hypr/default/defaults.conf"
 [[ -f "$CUSTOM" ]] && source "$CUSTOM" || source "$DEFAULT"
 
+confirm() {
+    local msg="$1"
+    local choice
+    choice=$(printf "$msg\n───────────────\n󰄬  Confirm\n󰅖  Cancel" | wofi --dmenu \
+    --style "$HOME/.voltdots/wofi/style.css" \
+    --width 320 --height 200 \
+    --location 2 \
+    --hide-search)
+[[ "$choice" == *"Confirm"* ]]
+}
+
 # --- Helpers ---
 get_volume() {
     wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2 * 100}'
@@ -222,10 +233,9 @@ brightness_menu() {
 # --- Main ---
 CHOICE=$(build_menu | wofi --dmenu \
     -p "  Action Center" \
-     \
-    --style /home/wypifu/.voltdots/wofi/style.css\
-    --yoffset 0\
-    --width 300\
+    --style "$HOME/.voltdots/wofi/style.css" \
+    --yoffset 0 \
+    --width 300 \
     --height 640)
 
 case "$CHOICE" in
@@ -235,13 +245,13 @@ case "$CHOICE" in
     *"WiFi:"*)          wifi_menu ;;
     *"Bluetooth dev"*)  bt_menu ;;
     *"Bluetooth:"*)     bt_menu ;;
-    *"Rotate left"*)   ~/.voltdots/scripts/rotate.sh left ;;
-    *"Rotate right"*)  ~/.voltdots/scripts/rotate.sh right ;;
-    *"Auto-rotate"*)   ~/.voltdots/scripts/rotate.sh auto & ;;
+    *"Rotate left"*)    ~/.voltdots/scripts/rotate.sh left ;;
+    *"Rotate right"*)   ~/.voltdots/scripts/rotate.sh right ;;
+    *"Auto-rotate"*)    ~/.voltdots/scripts/rotate.sh auto & ;;
     *"Audio outputs"*)  audio_menu ;;
     *"Lock"*)           hyprlock ;;
-    *"Logout"*)         hyprctl dispatch exit ;;
-    *"Suspend"*)        systemctl suspend ;;
-    *"Reboot"*)         systemctl reboot ;;
-    *"Shutdown"*)       systemctl poweroff ;;
+    *"Logout"*)   if confirm "󰍃 Logout — are you sure?";   then hyprctl dispatch exit; fi ;;
+    *"Suspend"*)  if confirm "󰒲 Suspend — are you sure?";  then systemctl suspend; fi ;;
+    *"Reboot"*)   if confirm "󰜉 Reboot — are you sure?";   then systemctl reboot; fi ;;
+    *"Shutdown"*) if confirm "󰐥 Shutdown — are you sure?"; then systemctl poweroff; fi ;;
 esac

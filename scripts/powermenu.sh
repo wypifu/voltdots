@@ -2,6 +2,18 @@
 # voltdots — powermenu.sh
 # Power menu via rofi
 
+confirm() {
+    local msg="$1"
+    local choice
+    choice=$(printf "Yes\nNo" | wofi --dmenu \
+        --prompt "$msg" \
+        --style "$HOME/.voltdots/wofi/style.css" \
+        --width 200 --height 120 \
+        --hide-search)
+    [[ "$choice" == "Yes" ]]
+}
+
+
 OPTIONS="  Lock\n  Logout\n  Suspend\n  Hibernate\n  Reboot\n  Shutdown\n  Cancel"
 
 CHOICE=$(echo -e "$OPTIONS" | wofi --dmenu \
@@ -15,19 +27,22 @@ case "$CHOICE" in
         hyprlock
         ;;
     *Logout)
-        hyprctl dispatch exit
+        if confirm "Logout?"; then
+          sleep 1.0
+          hyprctl dispatch exit
+        fi
         ;;
     *Suspend)
-        systemctl suspend
+        confirm "Suspend?" && systemctl suspend
         ;;
     *Hibernate)
-        systemctl hibernate
+        confirm "Hibernate?" && systemctl hibernate
         ;;
     *Reboot)
-        systemctl reboot
+        confirm "Reboot?" && systemctl reboot
         ;;
     *Shutdown)
-        systemctl poweroff
+        confirm "Shutdown?" && systemctl poweroff
         ;;
     *Cancel|"")
         exit 0
