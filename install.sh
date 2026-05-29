@@ -52,6 +52,7 @@ install_deps() {
         papirus-icon-theme
         pipewire wireplumber
         gsimplecal
+        tlp tlp-rdw
     )
 
     local aur_pkgs=(
@@ -145,6 +146,40 @@ make_executable() {
     success "Scripts are executable"
 }
 
+setup_laptop() {
+    # Only run if battery exists
+    if ! ls /sys/class/power_supply/BAT* > /dev/null 2>&1; then
+        info "No battery detected — skipping laptop setup"
+        return
+    fi
+
+    info "Battery detected — configuring laptop power management..."
+
+    # Enable TLP
+    sudo systemctl enable tlp --now
+    success "TLP enabled"
+
+    # Sudoers for power profile switching
+    local sudoers_file="/etc/sudoers.d/voltdots-powerprofile"
+    if [[ ! -f "$sudoers_file" ]]; then
+        echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/firmware/acpi/platform_profile" | \
+            sudo tee "$sudoers_file" > /dev/null
+        sudo chmod 440 "$sudoers_file"
+        success "Sudoers rule added for power profile"
+    fi
+
+        # Sudoers for TLP
+    local sudoers_file="/etc/sudoers.d/voltdots-powerprofile"
+    if [[ ! -f "$sudoers_file" ]]; then
+        {
+            echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/firmware/acpi/platform_profile"
+            echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/tlp"
+        } | sudo tee "$sudoers_file" > /dev/null
+        sudo chmod 440 "$sudoers_file"
+        success "Sudoers rules added for power profile"
+    fi
+}
+
 # --- Main ---
 echo -e "${BLUE}"
 echo "  ██╗   ██╗ ██████╗ ██╗  ████████╗██████╗  ██████╗ ████████╗███████╗"
@@ -166,6 +201,7 @@ SKIP_DEPS=false
 init_custom
 create_links
 make_executable
+setup_laptop
 
 echo ""
 info "Detecting monitors..."

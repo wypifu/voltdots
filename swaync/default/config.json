@@ -85,6 +85,10 @@
                     "command": "swaync-client -t && sleep 0.3 && hyprpicker -a"
                 },
                 {
+                    "label": "󰾆 Energy",
+                    "command": "~/.voltdots/scripts/powerprofile.sh"
+                },
+                {
                     "label": "󰐥 Power",
                     "command": "~/.voltdots/scripts/powermenu.sh"
                 }
